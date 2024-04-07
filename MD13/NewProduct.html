@@ -7,6 +7,7 @@
     <title>SELLING PRODcut</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <style>
     body {
@@ -20,8 +21,15 @@
         padding: 20px;
     }
 
+    .Product1 {
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
+        padding: 20px;
+    }
+
     .Ao,
-    .Mu {
+    .Mu .Giay {
         flex: 1;
         margin-right: 10px;
     }
@@ -33,7 +41,8 @@
     .nav-item {
         display: flex;
         align-items: center;
-        margin-right: 10px; /* Thêm margin-right để tạo khoảng cách giữa các nav-item */
+        margin-right: 10px;
+        /* Thêm margin-right để tạo khoảng cách giữa các nav-item */
     }
 
     .nav-link {
@@ -43,8 +52,8 @@
     .search-container {
         position: relative;
         margin: auto;
-        width: 50%;
-        margin-top: 50px;
+        width: 40%;
+        margin-top: 30px;
     }
 
     #searchInput {
@@ -84,18 +93,32 @@
     #searchResults.show {
         display: block;
     }
+
+    .button-group {
+        display: flex;
+    }
+
+    .btn-buy {
+        margin-right: 10px;
+        /* Khoảng cách 10px từ nút "Mua" đến nút "Thêm vào giỏ hàng" */
+    }
+
+    .cart-product-image {
+        width: 50px;
+        height: 50px;
+    }
 </style>
 
 <body>
-
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary navbar bg-body-tertiary">
         <div class="container-fluid">
             <a class="navbar-brand" href="/MD13/index.html">
                 <img src="/image/LOGO-OHAYO-1440x551.png" alt="" style="width: 80px; height: 50px">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -110,8 +133,13 @@
                         <a class="nav-link active" aria-current="page" href="/MD13/NewProduct.html">SELLING PRODUCTS</a>
                     </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/MD13/formcontact.html">FORM CONTACT</a>
+                    </li>
+
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
                             Danh Sách
                         </a>
                         <ul class="dropdown-menu">
@@ -132,6 +160,9 @@
 
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
+                        <a id="userIcon" class="nav-link" href="#">
+                            <i class="fas fa-user"></i>
+                        </a>
                         <a class="nav-link" onclick="confirmLogout()" href="#">Log Out</a>
                         <a id="cartIcon" class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#cartModal">
                             <span class="cart-icon">&#128722;</span>
@@ -139,11 +170,10 @@
                         </a>
                     </li>
                 </ul>
+
             </div>
         </div>
     </nav>
-
-
 
     <!-- Modal -->
     <div id="cartModal" class="modal" tabindex="-1">
@@ -157,6 +187,7 @@
                     <!-- Các sản phẩm trong giỏ hàng sẽ được hiển thị ở đây -->
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="deleteSelected">Xóa đã chọn</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                 </div>
             </div>
@@ -168,77 +199,210 @@
 
 
     <div class="Product">
-        <div class="Ao">
-            <div class="card" style="width: 18rem; height: 28rem;">
-                <img src="/image/Áo SAND KHÔ MÁU SHIRT.webp" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">SAND "KHÔ MÁU" SHIRT</h5>
-                    <a href="#" class="btn btn-primary">Mua</a>
-                    <a href="#" class="btn btn-primary">Thêm vào giỏ hàng</a>
-                    <p>Giá tiền: 500.000đ</p>
-                    <p>Lượt mua: 1002</p>
-
-                </div>
-            </div>
-        </div>
 
         <div class="Ao">
-            <div class="card" style="width: 18rem; height: 28rem;">
-                <img src="/image/123456.webp" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Áo polo</h5>
-                    <a href="#" class="btn btn-primary">Mua</a>
-                    <a href="#" class="btn btn-primary">Thêm vào giỏ hàng</a>
-                    <p>Giá tiền: 159.000đ</p>
-                    <p>Lượt mua: 82</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="Ao">
-            <div class="card" style="width: 17rem; height: 28rem;">
-                <img src="/image/Quần Black SIGNATURE SHORT.webp" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">BLACK SIGNATURE SHORT</h5>
-                    <a href="#" class="btn btn-primary">Mua</a>
-                    <a href="#" class="btn btn-primary">Thêm vào giỏ hàng</a>
-                    <p>Giá tiền: 400.000đ</p>
-                    <p>Lượt mua: 90</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="Mu">
-            <div class="card" style="width: 18rem; height: 28rem;">
-                <img src="/image/Mũ đen.jfif" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Mũ Đen</h5>
-                    <a href="#" class="btn btn-primary">Mua</a>
-                    <a href="#" class="btn btn-primary">Thêm vào giỏ hàng</a>
-                    <p>Giá tiền: 109.000đ</p>
-                    <p>Lượt mua: 302</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="Mu">
-            <div class="card" style="width: 18rem; height: 28rem;">
+            <div class="card" style="width: 20rem; height: 35rem;">
                 <img src="/image/Áo Thun Loca Freehand Typo Tee.webp" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">Áo thun TYPO TEE</h5>
-                    <a href="#" class="btn btn-primary">Mua</a>
-                    <a href="#" class="btn btn-primary">Thêm vào giỏ hàng</a>
-                    <p>Giá tiền: 420.000đ</p>
-                    <p>Lượt mua: 217</p>
+                    <h5 class="card-title">LOCAL FREEHAND TYPO</h5>
+                    <div class="button-group">
+                        <a href="#" class="btn btn-primary btn-buy">Mua</a>
+                        <div class="add-to-cart-section">
+                            <a href="#" class="btn btn-primary btn-add-to-cart">Thêm vào giỏ hàng</a>
+                            <span class="favorite">&#10084;</span> <!-- Trái tim nằm bên ngoài nút -->
+                            <div class="favorite-count">
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <p>Men & Women</p>
+                    <p>Size: <input type="checkbox" value="S" class="size-checkbox"> S <input type="checkbox" value="M"
+                            class="size-checkbox"> M <input type="checkbox" value="L" class="size-checkbox"> L</p>
+                    <p>Giá tiền: 309.000 VNĐ</p>
+                    <p>Lượt mua: 1200</p>
                 </div>
             </div>
         </div>
+
+        <div class="Ao">
+            <div class="card" style="width: 20rem; height: 35rem;">
+                <img src="/image/Quần BROWN DISSTRESSED CARGO SHORT.webp" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">BROWN DISSTRESSED CARGO</h5>
+                    <div class="button-group">
+                        <a href="#" class="btn btn-primary btn-buy">Mua</a>
+                        <div class="add-to-cart-section">
+                            <a href="#" class="btn btn-primary btn-add-to-cart">Thêm vào giỏ hàng</a>
+                            <span class="favorite">&#10084;</span> <!-- Trái tim nằm bên ngoài nút -->
+                            <div class="favorite-count">
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <p>Men & Women</p>
+                    <p>Size: <input type="checkbox" value="S" class="size-checkbox"> S <input type="checkbox" value="M"
+                            class="size-checkbox"> M <input type="checkbox" value="L" class="size-checkbox"> L</p>
+                    <p>Giá tiền: 509.000 VNĐ</p>
+                    <p>Lượt mua: 457</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="Ao">
+            <div class="card" style="width: 20rem; height: 35rem;">
+                <img src="/image/Áo Black B-ROCK ISLAND TEE.webp" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">BLACK B-ROCK ISLAND TEE</h5>
+                    <div class="button-group">
+                        <a href="#" class="btn btn-primary btn-buy">Mua</a>
+                        <div class="add-to-cart-section">
+                            <a href="#" class="btn btn-primary btn-add-to-cart">Thêm vào giỏ hàng</a>
+                            <span class="favorite">&#10084;</span> <!-- Trái tim nằm bên ngoài nút -->
+                            <div class="favorite-count">
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <p>Men & Women</p>
+                    <p>Size: <input type="checkbox" value="S" class="size-checkbox"> S <input type="checkbox" value="M"
+                            class="size-checkbox"> M <input type="checkbox" value="L" class="size-checkbox"> L</p>
+                    <p>Giá tiền: 459.000 VNĐ</p>
+                    <p>Lượt mua: 257</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="Giay">
+            <div class="card" style="width: 20rem; height: 35rem;">
+                <img src="/image/giay-nike-air-jordan-1-low-true-blue-cement-553558-412-7.htm" class="card-img-top"
+                    alt="...">
+                <div class="card-body">NIKE AIR JORDAN 1 LOW TRUE
+                    <h5 class="card-title"></h5>
+                    <div class="button-group">
+                        <a href="#" class="btn btn-primary btn-buy">Mua</a>
+                        <div class="add-to-cart-section">
+                            <a href="#" class="btn btn-primary btn-add-to-cart">Thêm vào giỏ hàng</a>
+                            <span class="favorite">&#10084;</span> <!-- Trái tim nằm bên ngoài nút -->
+                            <div class="favorite-count">
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <p>Men & Women</p>
+                    <p>Size: <input type="checkbox" value="S" class="size-checkbox"> S <input type="checkbox" value="M"
+                            class="size-checkbox"> M <input type="checkbox" value="L" class="size-checkbox"> L</p>
+                    <p>Giá tiền: 509.000 VNĐ</p>
+                    <p>Lượt mua: 827</p>
+                </div>
+            </div>
+        </div>
+
     </div>
 
+
+    <div class="Product1">
+        <div class="Giay">
+            <div class="card" style="width: 20rem; height: 35rem;">
+                <img src="/image/Black Jean Rabbit Tee.webp" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">BLACK JEAN RABBIT</h5>
+                    <div class="button-group">
+                        <a href="#" class="btn btn-primary btn-buy">Mua</a>
+                        <div class="add-to-cart-section">
+                            <a href="#" class="btn btn-primary btn-add-to-cart">Thêm vào giỏ hàng</a>
+                            <span class="favorite">&#10084;</span> <!-- Trái tim nằm bên ngoài nút -->
+                            <div class="favorite-count">
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <p>Men & Women</p>
+                    <p>Size: <input type="checkbox" value="S" class="size-checkbox"> S <input type="checkbox" value="M"
+                            class="size-checkbox"> M <input type="checkbox" value="L" class="size-checkbox"> L</p>
+                    <p>Giá tiền: 509.000 VNĐ</p>
+                    <p>Lượt mua: 723</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="Giay">
+            <div class="card" style="width: 20rem; height: 35rem;">
+                <img src="/image/Mũ đen.jfif" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Mũ Đen</h5>
+                    <div class="button-group">
+                        <a href="#" class="btn btn-primary btn-buy">Mua</a>
+                        <div class="add-to-cart-section">
+                            <a href="#" class="btn btn-primary btn-add-to-cart">Thêm vào giỏ hàng</a>
+                            <span class="favorite">&#10084;</span> <!-- Trái tim nằm bên ngoài nút -->
+                            <div class="favorite-count">
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <p>Men & Women</p>
+                    <p>Size: <input type="checkbox" value="S" class="size-checkbox"> S <input type="checkbox" value="M"
+                            class="size-checkbox"> M <input type="checkbox" value="L" class="size-checkbox"> L</p>
+                    <p>Giá tiền: 109.000 VNĐ</p>
+                    <p>Lượt mua: 3002</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="Giay">
+            <div class="card" style="width: 20rem; height: 35rem;">
+                <img src="/image/original-351.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">HEAL CREEK AHCSHF9801</h5>
+                    <div class="button-group">
+                        <a href="#" class="btn btn-primary btn-buy">Mua</a>
+                        <div class="add-to-cart-section">
+                            <a href="#" class="btn btn-primary btn-add-to-cart">Thêm vào giỏ hàng</a>
+                            <span class="favorite">&#10084;</span> <!-- Trái tim nằm bên ngoài nút -->
+                            <div class="favorite-count">
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <p>Men & Women</p>
+                    <p>Size: <input type="checkbox" value="S" class="size-checkbox"> S <input type="checkbox" value="M"
+                            class="size-checkbox"> M <input type="checkbox" value="L" class="size-checkbox"> L</p>
+                    <p>Giá tiền: 709.000 VNĐ</p>
+                    <p>Lượt mua: 6202</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="Giay">
+            <div class="card" style="width: 20rem; height: 35rem;">
+                <img src="/image/Áo SAND KHÔ MÁU SHIRT.webp" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">SAND KHÔ MÁU SHIRT</h5>
+                    <div class="button-group">
+                        <a href="#" class="btn btn-primary btn-buy">Mua</a>
+                        <div class="add-to-cart-section">
+                            <a href="#" class="btn btn-primary btn-add-to-cart">Thêm vào giỏ hàng</a>
+                            <span class="favorite">&#10084;</span> <!-- Trái tim nằm bên ngoài nút -->
+                            <div class="favorite-count">
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <p>Men & Women</p>
+                    <p>Size: <input type="checkbox" value="S" class="size-checkbox"> S <input type="checkbox" value="M"
+                            class="size-checkbox"> M <input type="checkbox" value="L" class="size-checkbox"> L</p>
+                    <p>Giá tiền: 500.000 VNĐ</p>
+                    <p>Lượt mua: 6202</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-        <script src="/MD13/newproduct.js"></script>
+    <script src="/MD13/index.js"></script>
 </body>
 
 </html>

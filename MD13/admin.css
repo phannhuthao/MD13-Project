@@ -1,0 +1,52 @@
+
+.table-header th,
+.table-content td {
+    padding: .85rem;
+    text-align: center;
+}
+
+
+.sidebar .nav-link.active,
+.sidebar .nav-link.active i {
+    background-color: #20a8d8;
+    color: #fff;
+}
+
+.sidebar .nav-link:hover:not(.active),
+.sidebar .nav-link:hover:not(.active) i {
+    background-color: #4a7b8d;
+    color: #fff;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+}
+
+.hang {
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.nav-item {
+    margin-right: 30px; /* Khoảng cách giữa các nav-item */
+    cursor: pointer;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: black;
+}
+
+.nav-link.active {
+    font-weight: bold;
+    color: blue;
+}
+

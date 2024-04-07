@@ -3,8 +3,9 @@ function confirmLogout() {
         window.location.href = "/MD13/Login.html"; 
     }
 }
+
 // Gắn hàm confirmLogout vào sự kiện onclick của nút Log Out
-document.querySelector('.nav-link').onclick = confirmLogout;
+document.getElementById('logoutButton').onclick = confirmLogout;
 
 
 
@@ -199,5 +200,34 @@ function displayUserInfo() {
 
 // Sự kiện khi nhấp vào biểu tượng người dùng
 document.getElementById('userIcon').addEventListener('click', displayUserInfo);
+
+
+function addToFavorites(productName, size, image) {
+    // Cập nhật thông tin sản phẩm yêu thích vào modal
+    document.getElementById('favoriteModalImage').src = image;
+    document.getElementById('favoriteModalName').innerText = productName;
+    document.getElementById('favoriteModalSize').innerText = "Size: " + size;
+    
+    // Mở modal
+    var favoriteModal = new bootstrap.Modal(document.getElementById('favoriteModal'));
+    favoriteModal.show();
+    
+    // Thêm sản phẩm vào danh sách yêu thích trong localStorage
+    var favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    favorites.push({ image: image, name: productName, size: size });
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+    
+    // Hiển thị thông báo hoặc cập nhật UI khác tùy theo yêu cầu
+    alert('Sản phẩm đã được thêm vào danh sách yêu thích!');
+}
+
+
+
+
+
+
+
+
+
 
   
