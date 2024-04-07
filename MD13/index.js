@@ -223,6 +223,49 @@ function addToFavorites(productName, size, image) {
 
 
 
+const applyVoucherBtn = document.getElementById('apply-voucher-btn');
+const voucherInput = document.getElementById('voucher-code');
+
+// Một số mã voucher hợp lệ (trong thực tế, bạn sẽ kiểm tra mã này trong cơ sở dữ liệu của bạn)
+const validVouchers = ["VOUCHER10", "VOUCHER20", "VOUCHER30"];
+
+applyVoucherBtn.addEventListener('click', function() {
+    const enteredVoucher = voucherInput.value.trim().toUpperCase(); // Lấy giá trị của mã voucher và chuyển thành chữ in hoa
+
+    if (enteredVoucher === "") {
+        alert("Vui lòng nhập mã voucher.");
+    } else if (validVouchers.includes(enteredVoucher)) {
+        // Nếu mã voucher hợp lệ, áp dụng giảm giá và hiển thị thông báo
+        applyDiscount(enteredVoucher);
+        alert(`Mã voucher "${enteredVoucher}" đã được áp dụng thành công.`);
+    } else {
+        alert("Mã voucher không hợp lệ.");
+    }
+});
+
+function applyDiscount(voucher) {
+    // Thực hiện logic để áp dụng giảm giá dựa trên mã voucher ở đây
+    let discountPercent = 0;
+    
+    // Kiểm tra mã voucher và áp dụng giảm giá tương ứng
+    switch (voucher) {
+        case "VOUCHER10":
+            discountPercent = 10;
+            break;
+        case "VOUCHER20":
+            discountPercent = 20;
+            break;
+        case "VOUCHER30":
+            discountPercent = 30;
+            break;
+        default:
+            break;
+    }
+
+    // Cập nhật giao diện hiển thị giảm giá (Nếu muốn)
+}
+
+
 
 
 

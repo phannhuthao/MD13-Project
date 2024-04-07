@@ -187,7 +187,7 @@
   .pagination a:hover:not(.active) {
     background-color: #ddd;
     border-radius: 5px;
-  } */
+  } 
 </style>
 
 <body>
@@ -222,10 +222,10 @@
               Danh Sách
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Áo</a></li>
-              <li><a class="dropdown-item" href="#">Quần</a></li>
-              <li><a class="dropdown-item" href="#">Mũ</a></li>
-              <li><a class="dropdown-item" href="#">Giày</a></li>
+              <li><a class="dropdown-item" href="/MD13/Ao.html">Áo</a></li>
+              <li><a class="dropdown-item" href="/MD13/Quan.html">Quần</a></li>
+              <li><a class="dropdown-item" href="/MD13/Mu.html">Mũ</a></li>
+              <li><a class="dropdown-item" href="/MD13/Giay.html">Giày</a></li>
             </ul>
           </li>
         </ul>
@@ -342,6 +342,8 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
+
+
 
   <h1 style="text-align: center;">Shirt</h1>
 
@@ -816,6 +818,14 @@
     <p>Tên người dùng: <input type="text" id="name" name="name" required></p>
     <p>Nội dung: <textarea id="comment" name="comment" required></textarea></p>
   </div>
+
+
+  <div class="voucher-section">
+    <label for="voucher-code">Nhập mã voucher:</label>
+    <input type="text" id="voucher-code" name="voucher-code">
+    <button id="apply-voucher-btn">Áp dụng</button>
+    <p id="voucher-message"></p>
+</div>
 
 
   <div class="container">
