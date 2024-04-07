@@ -1,14 +1,18 @@
 function confirmLogout() {
     if (confirm("Bạn muốn thoát khỏi trang web không?")) {
-        window.location.href = "/MD13/Login.html"; 
+        window.location.href = "/MD13/Login.html"; // Chuyển hướng đến trang Login.html nếu người dùng đồng ý
     }
+    // Nếu người dùng nhấn "Cancel", không làm gì cả và ở lại trang hiện tại
 }
+
 // Gắn hàm confirmLogout vào sự kiện onclick của nút Log Out
 document.querySelector('.nav-link').onclick = confirmLogout;
 
 
 
 document.addEventListener("DOMContentLoaded", function() {
+//     // Lắng nghe sự kiện khi người dùng ấn nút "Thêm vào giỏ hàng"
+// Trong hàm xử lý sự kiện khi người dùng nhấn nút "Thêm vào giỏ hàng"
 var addToCartButtons = document.querySelectorAll(".btn-add-to-cart");
 addToCartButtons.forEach(function(button) {
     button.addEventListener("click", function(event) {
@@ -89,41 +93,11 @@ addToCartButtons.forEach(function(button) {
             });
         }
     }
+    
 
-     // Thêm sự kiện nghe cho checkbox để theo dõi sản phẩm được chọn để xóa
-  var checkboxItems = document.querySelectorAll(".checkbox-delete-item");
-  checkboxItems.forEach(function(checkbox) {
-    checkbox.addEventListener("change", function() {
-      updateSelectedItems();
-    });
-  });
 
-  // Hàm cập nhật các sản phẩm được chọn
-  function updateSelectedItems() {
-    var selectedItems = document.querySelectorAll(".checkbox-delete-item:checked");
-    var deleteSelectedButton = document.getElementById("deleteSelected");
-    if (selectedItems.length > 0) {
-      deleteSelectedButton.classList.remove("disabled");
-    } else {
-      deleteSelectedButton.classList.add("disabled");
-    }
-  }
-
-  // Thêm sự kiện nghe cho nút xóa đã chọn
-  var deleteSelectedButton = document.getElementById("deleteSelected");
-  deleteSelectedButton.addEventListener("click", function() {
-    var checkedItems = document.querySelectorAll(".checkbox-delete-item:checked");
-    checkedItems.forEach(function(checkbox) {
-      var productName = checkbox.closest(".product").querySelector("strong").innerText;
-      deleteItemFromCart(productName);
-    });
-    // Sau khi xóa xong, cập nhật lại modal giỏ hàng
-    renderCartModal();
+    // Cập nhật số lượng sản phẩm trong icon giỏ hàng khi trang web được tải
     updateCartItemCount();
-  });
-
- 
-  
 });
 
 const products = [
@@ -182,22 +156,3 @@ function showProductDetails(product) {
     alert(`Tên sản phẩm: ${product.name}\nDanh mục: ${product.category}\nKích thước: ${product.size}`);
     // Bạn có thể thay thế alert bằng cách hiển thị thông tin chi tiết trong một modal, một cửa sổ popover, hoặc bất kỳ cách hiển thị nào khác phù hợp với thiết kế của bạn.
 }
-
-
-// Hàm để hiển thị thông tin người dùng
-function displayUserInfo() {
-    // Kiểm tra xem thông tin người dùng có được lưu trong localStorage không
-    var storedData = localStorage.getItem("userData");
-    if (storedData) {
-        var userData = JSON.parse(storedData);
-        var currentUser = userData[userData.length - 1]; // Lấy thông tin của người dùng mới nhất
-        alert(`Tên: ${currentUser.name}\nEmail: ${currentUser.email}\nMật khẩu: ${currentUser.password}`);
-    } else {
-        alert('Không tìm thấy thông tin người dùng.');
-    }
-}
-
-// Sự kiện khi nhấp vào biểu tượng người dùng
-document.getElementById('userIcon').addEventListener('click', displayUserInfo);
-
-  
