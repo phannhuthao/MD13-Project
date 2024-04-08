@@ -107,6 +107,42 @@
         width: 50px;
         height: 50px;
     }
+    .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    /* Đặt chiều cao của container là 100% chiều cao của viewport */
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .pagination a {
+    margin: 0 5px;
+    /* Khoảng cách giữa các liên kết */
+    text-decoration: none;
+    /* Loại bỏ gạch chân của liên kết */
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+  }
+
+  .pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+  }
+
+  .pagination a:hover:not(.active) {
+    background-color: #ddd;
+    border-radius: 5px;
+  } 
 </style>
 
 <body>
@@ -399,6 +435,21 @@
         </div>
 
     </div>
+
+
+    <div class="container">
+        <div class="pagination">
+          <a href="#">&laquo;</a>
+          <a href="/MD13/NewProduct.html">1</a>
+          <a href="/MD13/Page2.html">2</a>
+          <a href="/MD13/Page3.html">3</a>
+          <a href="#">4</a>
+          <a href="#">5</a>
+          <a href="#">6</a>
+          <a href="#">&raquo;</a>
+        </div>
+      </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>

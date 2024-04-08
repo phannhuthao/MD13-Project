@@ -1,5 +1,5 @@
 const adminInfo = {
-    "username": "admin",
+    "username": "admin@gmail.com",
     "pass": "123456"
 }
 

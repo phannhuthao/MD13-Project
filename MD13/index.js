@@ -4,54 +4,62 @@ function confirmLogout() {
     }
 }
 
-// Gắn hàm confirmLogout vào sự kiện onclick của nút Log Out
-document.getElementById('logoutButton').onclick = confirmLogout;
 
 
 
+
+
+
+
+// Chức năng Giỏ Hàng
 document.addEventListener("DOMContentLoaded", function() {
-var addToCartButtons = document.querySelectorAll(".btn-add-to-cart");
-addToCartButtons.forEach(function(button) {
-    button.addEventListener("click", function(event) {
-        event.preventDefault();
-        // Lấy thông tin sản phẩm
-        var productCard = event.target.closest(".card");
-        var productName = productCard.querySelector(".card-title").innerText;
-        var productPrice = productCard.querySelector(".card-body p:last-child").innerText;
-        var productImage = productCard.querySelector(".card-img-top").getAttribute("src"); // Lấy đường dẫn hình ảnh sản phẩm
+    var addToCartButtons = document.querySelectorAll(".btn-add-to-cart");
+    addToCartButtons.forEach(function(button) {
+        button.addEventListener("click", function(event) {
+            event.preventDefault();
+            // Lấy thông tin sản phẩm
+            var productCard = event.target.closest(".card");
+            var productName = productCard.querySelector(".card-title").innerText;
+            var productPrice = productCard.querySelector(".card-body p:last-child").innerText;
+            var productImage = productCard.querySelector(".card-img-top").getAttribute("src"); // Lấy đường dẫn hình ảnh sản phẩm
 
-        // Kiểm tra xem đã chọn size chưa
-        var selectedSize = productCard.querySelectorAll('.size-checkbox:checked');
-        if (selectedSize.length === 0) {
-            alert("Bạn phải chọn size sản phẩm trước khi thêm vào giỏ hàng!");
-            return; // Không thêm vào giỏ hàng nếu chưa chọn size
-        }
+            // Kiểm tra xem đã chọn size chưa
+            var selectedSize = productCard.querySelector('.size-checkbox:checked');
+            if (!selectedSize) {
+                alert("Bạn phải chọn size sản phẩm trước khi thêm vào giỏ hàng!");
+                return; // Không thêm vào giỏ hàng nếu chưa chọn size
+            }
 
-        // Lấy danh sách size đã chọn
-        var selectedSizes = Array.from(selectedSize).map(function(checkbox) {
-            return checkbox.value;
+            // Lấy size đã chọn
+            var selectedSizeValue = selectedSize.value;
+
+            // Tạo đối tượng sản phẩm
+            var product = {
+                name: productName,
+                price: productPrice,
+                size: selectedSizeValue,
+                image: productImage, // Thêm đường dẫn hình ảnh vào đối tượng sản phẩm
+                quantity: 1
+            };
+
+            // Lưu sản phẩm vào localStorage
+            var cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+            var existingCartItem = cartItems.find(item => item.name === productName && item.size === selectedSizeValue);
+            if (existingCartItem) {
+                // Nếu sản phẩm đã tồn tại với cùng tên và size, tăng số lượng lên 1
+                existingCartItem.quantity++;
+            } else {
+                // Nếu sản phẩm chưa tồn tại, thêm vào giỏ hàng
+                cartItems.push(product);
+            }
+            localStorage.setItem("cartItems", JSON.stringify(cartItems));
+
+            // Cập nhật số lượng sản phẩm trong icon giỏ hàng
+            updateCartItemCount();
+
+            alert("Sản phẩm đã được thêm vào giỏ hàng!");
         });
-
-        // Tạo đối tượng sản phẩm
-        var product = {
-            name: productName,
-            price: productPrice,
-            sizes: selectedSizes.join(", "),
-            image: productImage // Thêm đường dẫn hình ảnh vào đối tượng sản phẩm
-        };
-
-        // Lưu sản phẩm vào localStorage
-        var cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-        cartItems.push(product);
-        localStorage.setItem("cartItems", JSON.stringify(cartItems));
-
-        // Cập nhật số lượng sản phẩm trong icon giỏ hàng
-        updateCartItemCount();
-
-        alert("Sản phẩm đã được thêm vào giỏ hàng!");
     });
-});
-
 
     // Lắng nghe sự kiện khi người dùng ấn vào icon giỏ hàng
     var cartIcon = document.getElementById("cartIcon");
@@ -62,7 +70,7 @@ addToCartButtons.forEach(function(button) {
     // Hiển thị số lượng sản phẩm trong icon giỏ hàng
     function updateCartItemCount() {
         var cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-        var cartItemCount = cartItems.length;
+        var cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
         document.getElementById("cartItemCount").innerText = cartItemCount;
     }
 
@@ -81,8 +89,9 @@ addToCartButtons.forEach(function(button) {
                         <img src="${item.image}" alt="${item.name}" class="cart-product-image"> <!-- Thêm lớp cart-product-image -->
                         <div>
                             <p><strong>${item.name}</strong></p>
-                            <p>Size: ${item.sizes}</p>
+                            <p>Size: ${item.size}</p>
                             <p>${item.price}</p>
+                            <p>Số lượng: ${item.quantity}</p>
                         </div>
                     </div>
                 `;
@@ -90,45 +99,22 @@ addToCartButtons.forEach(function(button) {
             });
         }
     }
-
-     // Thêm sự kiện nghe cho checkbox để theo dõi sản phẩm được chọn để xóa
-  var checkboxItems = document.querySelectorAll(".checkbox-delete-item");
-  checkboxItems.forEach(function(checkbox) {
-    checkbox.addEventListener("change", function() {
-      updateSelectedItems();
-    });
-  });
-
-  // Hàm cập nhật các sản phẩm được chọn
-  function updateSelectedItems() {
-    var selectedItems = document.querySelectorAll(".checkbox-delete-item:checked");
-    var deleteSelectedButton = document.getElementById("deleteSelected");
-    if (selectedItems.length > 0) {
-      deleteSelectedButton.classList.remove("disabled");
-    } else {
-      deleteSelectedButton.classList.add("disabled");
-    }
-  }
-
-  // Thêm sự kiện nghe cho nút xóa đã chọn
-  var deleteSelectedButton = document.getElementById("deleteSelected");
-  deleteSelectedButton.addEventListener("click", function() {
-    var checkedItems = document.querySelectorAll(".checkbox-delete-item:checked");
-    checkedItems.forEach(function(checkbox) {
-      var productName = checkbox.closest(".product").querySelector("strong").innerText;
-      deleteItemFromCart(productName);
-    });
-    // Sau khi xóa xong, cập nhật lại modal giỏ hàng
-    renderCartModal();
-    updateCartItemCount();
-  });
-
- 
-  
 });
 
+
+
+
+
+
+
+
+
+
+
+
+//   thanh srceach
 const products = [
-    { name: "Áo phông LOCAL FREEHAND TYPO", category: "Áo", size: "S, M, L,", image: "path_to_image1.jpg" },
+    { name: "Áo phông LOCAL FREEHAND TYPO", category: "Áo", size: "S, M, L,", image: "/image/Áo Thun Loca Freehand Typo Tee.webp" },
     { name: "Áo phông Áo BROCK TEE - GREY", category: "Áo", size: "S, M, L,", image: "path_to_image2.jpg" },
     { name: "Quần short (nhiều màu)", category: "Quần", size: "S, M, L", image: "path_to_image3.jpg" },
     { name: "Quần dài nam", category: "Quần", size: "S, M, L,", image: "path_to_image4.jpg" },
@@ -168,19 +154,20 @@ function renderSearchResults(results) {
 
     results.forEach(product => {
         const productElement = document.createElement('a');
-        productElement.textContent = `${product.name} - ${product.category}`;
+        productElement.textContent = `${product.name} - ${product.category}`;  // tạo một đường liên kết (anchor element) với nội dung là tên sản phẩm và danh mục của sản phẩm 
         productElement.href = "#"; // Gắn href để có thể nhấp vào sản phẩm
         productElement.addEventListener('click', function(event) {
             event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ a
             showProductDetails(product); // Hiển thị thông tin chi tiết của sản phẩm khi nhấp vào
         });
+        
         searchResults.appendChild(productElement);
     });
 }
 
 function showProductDetails(product) {
     // Hiển thị thông tin chi tiết của sản phẩm
-    alert(`Tên sản phẩm: ${product.name}\nDanh mục: ${product.category}\nKích thước: ${product.size}`);
+    alert(`Tên sản phẩm: ${product.name}\nDanh mục: ${product.category}\nKích thước: ${product.size} \nẢnh: ${product.image}`);
     // Bạn có thể thay thế alert bằng cách hiển thị thông tin chi tiết trong một modal, một cửa sổ popover, hoặc bất kỳ cách hiển thị nào khác phù hợp với thiết kế của bạn.
 }
 
@@ -202,6 +189,32 @@ function displayUserInfo() {
 document.getElementById('userIcon').addEventListener('click', displayUserInfo);
 
 
+
+
+
+
+
+
+
+// function addToFavorites(productName, size, image) {
+//     // Cập nhật thông tin sản phẩm yêu thích vào modal
+//     document.getElementById('favoriteModalImage').src = image;
+//     document.getElementById('favoriteModalName').innerText = productName;
+//     document.getElementById('favoriteModalSize').innerText = "Size: " + size;
+    
+//     // Mở modal
+//     var favoriteModal = new bootstrap.Modal(document.getElementById('favoriteModal'));
+//     favoriteModal.show();
+    
+//     // Thêm sản phẩm vào danh sách yêu thích trong localStorage
+//     var favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+//     favorites.push({ image: image, name: productName, size: size });
+//     localStorage.setItem('favorites', JSON.stringify(favorites));
+    
+//     // Hiển thị thông báo hoặc cập nhật UI khác tùy theo yêu cầu
+//     alert('Sản phẩm đã được thêm vào danh sách yêu thích!');
+// }
+
 function addToFavorites(productName, size, image) {
     // Cập nhật thông tin sản phẩm yêu thích vào modal
     document.getElementById('favoriteModalImage').src = image;
@@ -220,55 +233,6 @@ function addToFavorites(productName, size, image) {
     // Hiển thị thông báo hoặc cập nhật UI khác tùy theo yêu cầu
     alert('Sản phẩm đã được thêm vào danh sách yêu thích!');
 }
-
-
-
-const applyVoucherBtn = document.getElementById('apply-voucher-btn');
-const voucherInput = document.getElementById('voucher-code');
-
-// Một số mã voucher hợp lệ (trong thực tế, bạn sẽ kiểm tra mã này trong cơ sở dữ liệu của bạn)
-const validVouchers = ["VOUCHER10", "VOUCHER20", "VOUCHER30"];
-
-applyVoucherBtn.addEventListener('click', function() {
-    const enteredVoucher = voucherInput.value.trim().toUpperCase(); // Lấy giá trị của mã voucher và chuyển thành chữ in hoa
-
-    if (enteredVoucher === "") {
-        alert("Vui lòng nhập mã voucher.");
-    } else if (validVouchers.includes(enteredVoucher)) {
-        // Nếu mã voucher hợp lệ, áp dụng giảm giá và hiển thị thông báo
-        applyDiscount(enteredVoucher);
-        alert(`Mã voucher "${enteredVoucher}" đã được áp dụng thành công.`);
-    } else {
-        alert("Mã voucher không hợp lệ.");
-    }
-});
-
-function applyDiscount(voucher) {
-    // Thực hiện logic để áp dụng giảm giá dựa trên mã voucher ở đây
-    let discountPercent = 0;
-    
-    // Kiểm tra mã voucher và áp dụng giảm giá tương ứng
-    switch (voucher) {
-        case "VOUCHER10":
-            discountPercent = 10;
-            break;
-        case "VOUCHER20":
-            discountPercent = 20;
-            break;
-        case "VOUCHER30":
-            discountPercent = 30;
-            break;
-        default:
-            break;
-    }
-
-    // Cập nhật giao diện hiển thị giảm giá (Nếu muốn)
-}
-
-
-
-
-
 
 
 

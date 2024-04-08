@@ -198,26 +198,25 @@ function displayUserInfo() {
     }
 }
 
-// Lấy thẻ a chứa biểu tượng người dùng
-var userIcon = document.getElementById('userIcon');
-if (userIcon) {
-    // Thêm sự kiện click vào thẻ a
-    userIcon.addEventListener('click', function(event) {
-        event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ a
-        displayUserInfo(); // Hiển thị thông tin người dùng khi nhấp vào biểu tượng người dùng
-    });
+// Sự kiện khi nhấp vào biểu tượng người dùng
+document.getElementById('userIcon').addEventListener('click', displayUserInfo);
+
+
+function addToFavorites(productName, size, image) {
+    // Cập nhật thông tin sản phẩm yêu thích vào modal
+    document.getElementById('favoriteModalImage').src = image;
+    document.getElementById('favoriteModalName').innerText = productName;
+    document.getElementById('favoriteModalSize').innerText = "Size: " + size;
+    
+    // Mở modal
+    var favoriteModal = new bootstrap.Modal(document.getElementById('favoriteModal'));
+    favoriteModal.show();
+    
+    // Thêm sản phẩm vào danh sách yêu thích trong localStorage
+    var favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    favorites.push({ image: image, name: productName, size: size });
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+    
+    // Hiển thị thông báo hoặc cập nhật UI khác tùy theo yêu cầu
+    alert('Sản phẩm đã được thêm vào danh sách yêu thích!');
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
